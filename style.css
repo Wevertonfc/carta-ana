@@ -1,0 +1,595 @@
+/* ========================================
+   CARTA DE AMOR PARA ANA — style.css
+   ======================================== */
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink-light:  #ffd6e0;
+  --pink:        #ff4d6d;
+  --pink-dark:   #c9184a;
+  --red:         #ff1744;
+  --white:       #ffffff;
+  --cream:       #fff5f7;
+  --text-dark:   #3d0c11;
+  --text-mid:    #7b2d3a;
+  --text-soft:   #c47a88;
+  --shadow:      rgba(255, 77, 109, 0.35);
+  --glass-bg:    rgba(255,255,255,0.18);
+  --glass-border:rgba(255,255,255,0.40);
+
+  --font-script: 'Great Vibes', cursive;
+  --font-body:   'Poppins', sans-serif;
+
+  --transition: 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #ffe4ec 0%, #ffd6e7 30%, #ffb3c6 60%, #ff99b5 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text-dark);
+}
+
+/* ── Canvas de partículas ── */
+#particle-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Telas ── */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.6s var(--transition), transform 0.6s var(--transition);
+  z-index: 10;
+  will-change: opacity, transform;
+  overflow-y: auto;          /* permite rolar se o conteúdo não couber */
+  overflow-x: hidden;
+}
+
+.screen.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
+}
+
+.screen.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────
+   TELA INICIAL
+───────────────────────────────── */
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 2vh, 1.1rem); /* gap encolhe em telas pequenas */
+  text-align: center;
+  animation: floatIn 1s ease both;
+  padding: clamp(0.5rem, 2vh, 1rem) 0 clamp(1rem, 3vh, 1.5rem);
+  width: 100%;
+  max-width: 600px;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Coração pulsante */
+.heart-icon {
+  font-size: clamp(3rem, 10vw, 6rem);
+  animation: heartbeat 1.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,23,68,0.6));
+  user-select: none;
+  will-change: transform;
+  line-height: 1;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1);    }
+  14%       { transform: scale(1.18); }
+  28%       { transform: scale(1);    }
+  42%       { transform: scale(1.12); }
+  56%       { transform: scale(1);    }
+}
+
+/* Título */
+.intro-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  color: var(--pink-dark);
+  text-shadow: 0 2px 20px var(--shadow);
+  line-height: 1.1;
+}
+
+.intro-subtitle {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--text-mid);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.intro-date {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+/* Botão de música */
+.music-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  padding: 0.45rem 1.2rem;
+  color: var(--pink-dark);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.04em;
+}
+
+.music-btn:hover {
+  background: rgba(255,77,109,0.2);
+  border-color: var(--pink);
+  transform: translateY(-1px);
+}
+
+.music-btn.playing { background: rgba(255,77,109,0.25); }
+.music-icon { font-size: 1rem; }
+
+/* CTA button */
+.cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, var(--pink) 0%, var(--red) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 0.9rem 2.2rem;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 3vw, 1.15rem);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 30px var(--shadow), 0 2px 8px rgba(0,0,0,0.1);
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+  will-change: transform;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 40px var(--shadow), 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.cta-btn:active { transform: translateY(-1px) scale(1.02); }
+.btn-icon { font-size: 1.3rem; animation: wiggle 2s ease-in-out infinite; }
+
+@keyframes wiggle {
+  0%,100% { transform: rotate(0deg);   }
+  25%      { transform: rotate(-12deg); }
+  75%      { transform: rotate(12deg);  }
+}
+
+/* ── Contador ── */
+.timer-card {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+  text-align: center;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  transition: padding 0.35s ease, border-radius 0.35s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Botão de minimizar */
+.timer-minimize-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-soft);
+  font-size: 0.6rem;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timer-minimize-btn:hover {
+  color: var(--pink-dark);
+  background: rgba(255,77,109,0.1);
+}
+
+/* Conteúdo interno animável */
+#timer-inner {
+  overflow: hidden;
+  max-width: 800px;
+  max-height: 80px;
+  opacity: 1;
+  transition: max-width 0.4s ease, max-height 0.4s ease, opacity 0.3s ease;
+}
+
+/* Estado MINIMIZADO */
+.timer-card.minimized {
+  padding: 0.45rem 0.7rem;
+  border-radius: 50px;
+}
+.timer-card.minimized #timer-inner {
+  max-width: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+.timer-card.minimized .timer-minimize-btn {
+  transform: rotate(180deg); /* seta vira para cima */
+  color: var(--pink-dark);
+}
+
+.timer-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-soft);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 32px;
+}
+
+.time-unit span {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-weight: 700;
+  color: var(--pink-dark);
+  line-height: 1;
+}
+
+.time-unit small {
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.time-sep {
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  opacity: 0.5;
+  align-self: flex-start;
+  padding-top: 2px;
+}
+
+/* ─────────────────────────────────
+   ENVELOPE
+───────────────────────────────── */
+#letter-screen { overflow-y: auto; justify-content: flex-start; padding-top: 2rem; padding-bottom: 3rem; }
+
+#envelope-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+#envelope {
+  width: 160px;
+  height: 110px;
+  position: relative;
+  cursor: default;
+  animation: envelopeDrop 0.8s ease both;
+}
+
+@keyframes envelopeDrop {
+  from { transform: translateY(-60px) scale(0.5); opacity: 0; }
+  to   { transform: translateY(0) scale(1);       opacity: 1; }
+}
+
+.env-body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fff0f5, #ffd6e7);
+  border-radius: 4px 4px 14px 14px;
+  border: 2px solid var(--pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+.env-seal { font-size: 2.5rem; }
+
+.env-flap {
+  position: absolute;
+  top: -2px; left: -2px;
+  width: calc(100% + 4px);
+  height: 60px;
+  background: linear-gradient(160deg, #ffd6e7, #ffb3c6);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  border: 2px solid var(--pink);
+  border-bottom: none;
+  transform-origin: top center;
+  animation: openFlap 1s 0.8s ease both;
+}
+
+@keyframes openFlap {
+  0%   { transform: rotateX(0deg);    }
+  100% { transform: rotateX(-160deg); }
+}
+
+/* ─────────────────────────────────
+   CARTA
+───────────────────────────────── */
+#letter-wrapper {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+#letter-card {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+  box-shadow:
+    0 20px 60px rgba(255,77,109,0.2),
+    0 4px 20px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,77,109,0.15);
+  position: relative;
+  animation: letterReveal 0.9s 1.4s ease both;
+  contain: content; /* isola reflow da carta */
+}
+
+@keyframes letterReveal {
+  from { opacity: 0; transform: translateY(40px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);     }
+}
+
+/* Decorações de canto */
+.letter-decoration {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.3;
+  animation: floatDecor 3s ease-in-out infinite alternate;
+}
+.letter-decoration.top-left    { top: 14px; left: 18px; }
+.letter-decoration.top-right   { top: 14px; right: 18px; animation-delay: 0.5s; }
+.letter-decoration.bottom-left { bottom: 70px; left: 18px; animation-delay: 1s; }
+.letter-decoration.bottom-right{ bottom: 70px; right: 18px; animation-delay: 1.5s; }
+
+@keyframes floatDecor {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+.letter-salutation {
+  font-family: var(--font-script);
+  font-size: clamp(2.4rem, 7vw, 3.5rem);
+  color: var(--pink-dark);
+  text-align: center;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.letter-divider {
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--pink-light), var(--pink), var(--pink-light), transparent);
+  border-radius: 2px;
+  margin: 1rem 0;
+}
+
+.letter-greeting {
+  font-style: italic;
+  color: var(--text-mid);
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+}
+
+.letter-body {
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  color: var(--text-dark);
+  line-height: 1.9;
+  font-weight: 300;
+  min-height: 2em;
+}
+
+.letter-body p { margin-bottom: 0.8em; }
+
+/* Cursor piscante */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--pink);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:0 } }
+
+.letter-signature {
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.letter-name {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  color: var(--pink-dark);
+  margin-top: 0.1rem;
+}
+
+/* Foto */
+.letter-image-wrap {
+  margin-top: 1.8rem;
+  text-align: center;
+}
+
+.letter-photo {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 4px solid var(--pink-light);
+  box-shadow: 0 8px 32px var(--shadow);
+  transition: transform 0.4s ease;
+}
+
+.letter-photo:hover { transform: scale(1.02) rotate(1deg); }
+
+.letter-photo-caption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+/* Mensagem final */
+.letter-final-message {
+  margin-top: 1.8rem;
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  color: var(--pink-dark);
+  text-align: center;
+  background: linear-gradient(135deg, var(--pink-light), #ffe0e8);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(255,77,109,0.2);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 10px rgba(255,77,109,0.2); }
+  50%      { box-shadow: 0 0 30px rgba(255,77,109,0.5); }
+}
+
+/* Botão voltar */
+.back-btn {
+  display: block;
+  margin: 2rem auto 0;
+  background: transparent;
+  border: 2px solid var(--pink);
+  color: var(--pink-dark);
+  border-radius: 50px;
+  padding: 0.6rem 1.8rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.back-btn:hover {
+  background: var(--pink);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+
+/* ─────────────────────────────────
+   RESPONSIVO
+───────────────────────────────── */
+
+/* Telas pequenas (até 768px) — reduzi espaçamentos gerais */
+@media (max-width: 768px) {
+  .screen { padding: 1rem; }
+
+  .intro-title   { font-size: clamp(2.4rem, 11vw, 4rem); }
+  .intro-subtitle{ font-size: clamp(0.9rem, 3.5vw, 1.1rem); }
+
+  .cta-btn { padding: 0.75rem 1.8rem; font-size: 1rem; }
+
+  #letter-screen { padding-top: 1.2rem; padding-bottom: 2rem; }
+}
+
+/* Celulares (até 480px) — modo compacto */
+@media (max-width: 480px) {
+  .screen { padding: 0.75rem; justify-content: flex-start; padding-top: 1rem; }
+
+  .intro-content { gap: clamp(0.35rem, 1.5vh, 0.7rem); }
+
+  .heart-icon    { font-size: clamp(2.5rem, 14vw, 4rem); }
+  .intro-title   { font-size: clamp(2rem, 13vw, 3rem); }
+  .intro-subtitle{ font-size: 0.9rem; }
+  .intro-date    { font-size: 0.72rem; }
+
+  .music-btn  { font-size: 0.75rem; padding: 0.35rem 0.9rem; }
+  .cta-btn    { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
+
+  /* Contador compacto */
+  .timer-card    { padding: 0.3rem 0.6rem 0.3rem 0.5rem; }
+  .time-sep      { display: none; }
+  .timer-display { gap: 0.25rem; }
+  .time-unit     { min-width: 30px; }
+  .time-unit span{ font-size: 0.85rem; }
+  .time-unit small{ font-size: 0.45rem; }
+
+  /* Carta */
+  #letter-screen  { padding-top: 1rem; padding-bottom: 1.5rem; }
+  #envelope       { width: 110px; height: 76px; }
+  .env-flap       { height: 40px; }
+  .env-seal       { font-size: 1.6rem; }
+}
+
+/* Telas muito pequenas (até 360px) */
+@media (max-width: 360px) {
+  .heart-icon  { font-size: 2.5rem; }
+  .intro-title { font-size: 2rem; }
+  .timer-card  { max-width: calc(100vw - 1rem); }
+}
+
+/* ── Scrollbar personalizada ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--pink-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--pink); }

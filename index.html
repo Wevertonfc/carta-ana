@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Uma carta de amor especial para Ana, escrita com todo o carinho do mundo." />
+  <title>💌 Carta de Amor para Ana</title>
+
+  <!-- Fontes: preconnect + carregamento não-bloqueante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" />
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" />
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" />
+  </noscript>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ========== CANVAS DE PARTÍCULAS ========== -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ========== TELA INICIAL ========== -->
+  <section id="intro-screen" class="screen active">
+    <div class="intro-content">
+      <div id="heart-pulse" class="heart-icon">❤️</div>
+
+      <!-- Contador de tempo juntos — logo abaixo do coração -->
+      <div class="timer-card" id="timer-card">
+        <button id="timer-minimize-btn" class="timer-minimize-btn" aria-label="Minimizar contador" title="Minimizar">
+          <span id="timer-minimize-icon">▼</span>
+        </button>
+        <div id="timer-inner">
+          <p class="timer-label">Juntos há</p>
+          <div class="timer-display" id="timer-display">
+            <div class="time-unit"><span id="t-years">0</span><small>anos</small></div>
+            <div class="time-sep">·</div>
+            <div class="time-unit"><span id="t-months">0</span><small>meses</small></div>
+            <div class="time-sep">·</div>
+            <div class="time-unit"><span id="t-days">0</span><small>dias</small></div>
+            <div class="time-sep">·</div>
+            <div class="time-unit"><span id="t-hours">0</span><small>horas</small></div>
+            <div class="time-sep">·</div>
+            <div class="time-unit"><span id="t-minutes">0</span><small>minutos</small></div>
+            <div class="time-sep">·</div>
+            <div class="time-unit"><span id="t-seconds">0</span><small>segundos</small></div>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="intro-title">Para Ana</h1>
+      <p class="intro-subtitle">Uma surpresa especial para você 🌹</p>
+      <p class="intro-date">Dia dos Namorados · 2026</p>
+
+      <!-- Toggle de música -->
+      <button id="music-toggle" class="music-btn" aria-label="Ativar música de fundo">
+        <span class="music-icon">🎵</span>
+        <span class="music-label">Ativar Música</span>
+      </button>
+
+      <button id="open-letter-btn" class="cta-btn">
+        <span>Abrir Minha Carta</span>
+        <span class="btn-icon">💌</span>
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ========== TELA DA CARTA ========== -->
+  <section id="letter-screen" class="screen">
+
+    <!-- Envelope de abertura -->
+    <div id="envelope-wrapper">
+      <div id="envelope">
+        <div class="env-flap"></div>
+        <div class="env-body">
+          <span class="env-seal">💌</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carta em si -->
+    <div id="letter-wrapper">
+      <div id="letter-card">
+        <div class="letter-decoration top-left">❤️</div>
+        <div class="letter-decoration top-right">🌹</div>
+        <div class="letter-decoration bottom-left">✨</div>
+        <div class="letter-decoration bottom-right">❤️</div>
+
+        <p class="letter-salutation">Para Ana, Meu Amor ❤️</p>
+
+        <div class="letter-divider"></div>
+
+        <p class="letter-greeting">Meu Bem,</p>
+
+        <div id="letter-text" class="letter-body"></div>
+
+        <div class="letter-divider"></div>
+
+        <p class="letter-signature">Com todo meu amor,</p>
+        <p class="letter-name">Weverton ❤️</p>
+
+        <div class="letter-image-wrap">
+          <img src="assets/foto.jpg" alt="Nossa história" class="letter-photo" id="letter-photo" loading="lazy"
+            decoding="async" />
+          <p class="letter-photo-caption">A melhor parte dos meus dias 💕</p>
+        </div>
+
+        <p class="letter-final-message">"Ana, você é a melhor parte dos meus dias. ❤️"</p>
+
+        <button id="back-btn" class="back-btn">← Voltar</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Áudio oculto (usuário deve adicionar o próprio arquivo) -->
+  <audio id="bg-music" loop>
+    <!-- Adicione um arquivo .mp3 em assets/musica.mp3 para ativar a música -->
+    <!-- <source src="assets/musica.mp3" type="audio/mpeg" /> -->
+  </audio>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>
