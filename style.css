@@ -311,12 +311,12 @@ body {
 /* ─────────────────────────────────
    ENVELOPE
 ───────────────────────────────── */
-#letter-screen { overflow-y: auto; justify-content: flex-start; padding-top: 2rem; padding-bottom: 3rem; }
+#letter-screen { overflow-y: auto; justify-content: flex-start; padding: 1rem 0.75rem 3rem; }
 
 #envelope-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 #envelope {
@@ -375,8 +375,8 @@ body {
 
 #letter-card {
   background: var(--cream);
-  border-radius: 24px;
-  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 3rem);
+  border-radius: 20px;
+  padding: clamp(1.2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
   box-shadow:
     0 20px 60px rgba(255,77,109,0.2),
     0 4px 20px rgba(0,0,0,0.08),
@@ -384,7 +384,7 @@ body {
   border: 1px solid rgba(255,77,109,0.15);
   position: relative;
   animation: letterReveal 0.9s 1.4s ease both;
-  contain: content; /* isola reflow da carta */
+  contain: content;
 }
 
 @keyframes letterReveal {
@@ -393,16 +393,11 @@ body {
 }
 
 /* Decorações de canto */
-.letter-decoration {
-  position: absolute;
-  font-size: 1.4rem;
-  opacity: 0.3;
-  animation: floatDecor 3s ease-in-out infinite alternate;
-}
-.letter-decoration.top-left    { top: 14px; left: 18px; }
-.letter-decoration.top-right   { top: 14px; right: 18px; animation-delay: 0.5s; }
-.letter-decoration.bottom-left { bottom: 70px; left: 18px; animation-delay: 1s; }
-.letter-decoration.bottom-right{ bottom: 70px; right: 18px; animation-delay: 1.5s; }
+.letter-decoration { position: absolute; font-size: 1.2rem; opacity: 0.3; animation: floatDecor 3s ease-in-out infinite alternate; }
+.letter-decoration.top-left    { top: 10px; left: 12px; }
+.letter-decoration.top-right   { top: 10px; right: 12px; animation-delay: 0.5s; }
+.letter-decoration.bottom-left { bottom: 60px; left: 12px; animation-delay: 1s; }
+.letter-decoration.bottom-right{ bottom: 60px; right: 12px; animation-delay: 1.5s; }
 
 @keyframes floatDecor {
   from { transform: translateY(0); }
@@ -411,11 +406,12 @@ body {
 
 .letter-salutation {
   font-family: var(--font-script);
-  font-size: clamp(2.4rem, 7vw, 3.5rem);
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
   color: var(--pink-dark);
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 0.5rem;
+  word-break: break-word;
 }
 
 .letter-divider {
@@ -540,48 +536,56 @@ body {
    RESPONSIVO
 ───────────────────────────────── */
 
-/* Telas pequenas (até 768px) — reduzi espaçamentos gerais */
+/* Tablets e telas médias (≤ 768px) */
 @media (max-width: 768px) {
-  .screen { padding: 1rem; }
-
-  .intro-title   { font-size: clamp(2.4rem, 11vw, 4rem); }
-  .intro-subtitle{ font-size: clamp(0.9rem, 3.5vw, 1.1rem); }
-
-  .cta-btn { padding: 0.75rem 1.8rem; font-size: 1rem; }
-
-  #letter-screen { padding-top: 1.2rem; padding-bottom: 2rem; }
+  .screen          { padding: 1rem; }
+  .intro-title     { font-size: clamp(2.4rem, 11vw, 4rem); }
+  .intro-subtitle  { font-size: clamp(0.9rem, 3.5vw, 1.1rem); }
+  .cta-btn         { padding: 0.75rem 1.8rem; font-size: 1rem; }
+  #letter-screen   { padding: 1.2rem 0.75rem 2rem; }
 }
 
-/* Celulares (até 480px) — modo compacto */
+/* Celulares (≤ 480px) — layout compacto */
 @media (max-width: 480px) {
-  .screen { padding: 0.75rem; justify-content: flex-start; padding-top: 1rem; }
+  /* Tela geral */
+  .screen { padding: 0.75rem; justify-content: flex-start; padding-top: 0.75rem; }
 
-  .intro-content { gap: clamp(0.35rem, 1.5vh, 0.7rem); }
-
-  .heart-icon    { font-size: clamp(2.5rem, 14vw, 4rem); }
-  .intro-title   { font-size: clamp(2rem, 13vw, 3rem); }
-  .intro-subtitle{ font-size: 0.9rem; }
-  .intro-date    { font-size: 0.72rem; }
-
-  .music-btn  { font-size: 0.75rem; padding: 0.35rem 0.9rem; }
-  .cta-btn    { padding: 0.7rem 1.5rem; font-size: 0.95rem; }
+  /* Intro */
+  .intro-content  { gap: clamp(0.3rem, 1.2vh, 0.6rem); }
+  .heart-icon     { font-size: clamp(2.2rem, 13vw, 3.5rem); }
+  .intro-title    { font-size: clamp(1.9rem, 12vw, 2.8rem); }
+  .intro-subtitle { font-size: 0.88rem; }
+  .intro-date     { font-size: 0.7rem; }
+  .music-btn      { font-size: 0.75rem; padding: 0.35rem 0.9rem; }
+  .cta-btn        { padding: 0.75rem 1.6rem; font-size: 0.95rem; min-height: 48px; }
 
   /* Contador compacto */
-  .timer-card    { padding: 0.3rem 0.6rem 0.3rem 0.5rem; }
-  .time-sep      { display: none; }
-  .timer-display { gap: 0.25rem; }
-  .time-unit     { min-width: 30px; }
-  .time-unit span{ font-size: 0.85rem; }
-  .time-unit small{ font-size: 0.45rem; }
+  .timer-card     { padding: 0.3rem 0.5rem 0.3rem 0.4rem; }
+  .time-sep       { display: none; }
+  .timer-display  { gap: 0.2rem; }
+  .time-unit      { min-width: 28px; }
+  .time-unit span { font-size: 0.82rem; }
+  .time-unit small{ font-size: 0.42rem; }
+
+  /* Envelope */
+  #letter-screen   { padding: 0.75rem 0.5rem 2rem; }
+  #envelope-wrapper{ margin-bottom: 0.8rem; }
+  #envelope        { width: 100px; height: 68px; }
+  .env-flap        { height: 36px; }
+  .env-seal        { font-size: 1.4rem; }
 
   /* Carta */
-  #letter-screen  { padding-top: 1rem; padding-bottom: 1.5rem; }
-  #envelope       { width: 110px; height: 76px; }
-  .env-flap       { height: 40px; }
-  .env-seal       { font-size: 1.6rem; }
+  #letter-card     { border-radius: 16px; }
+  .letter-decoration { font-size: 1rem; }
+  .letter-decoration.bottom-left,
+  .letter-decoration.bottom-right { bottom: 52px; }
+  .letter-name     { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+  .letter-final-message { font-size: clamp(1.2rem, 5vw, 1.6rem); padding: 0.8rem 1rem; }
+  .letter-photo    { max-width: 100%; }
+  .back-btn        { min-height: 44px; } /* área de toque mínima */
 }
 
-/* Telas muito pequenas (até 360px) */
+/* Telas muito pequenas (≤ 360px) */
 @media (max-width: 360px) {
   .heart-icon  { font-size: 2.5rem; }
   .intro-title { font-size: 2rem; }
