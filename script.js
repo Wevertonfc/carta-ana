@@ -182,8 +182,10 @@ const musicLabel  = musicToggle.querySelector('.music-label');
 let isPlaying = false;
 
 musicToggle.addEventListener('click', () => {
-  if (!music.src || music.src === window.location.href) {
-    showToast('🎵 Adicione um arquivo MP3 em assets/musica.mp3 para ativar a música!');
+  // Verifica se há src direto ou tag <source>
+  const hasSource = music.src || music.querySelector('source');
+  if (!hasSource) {
+    showToast('🎵 Adicione um arquivo de música em assets/musica.m4a para ativar a música!');
     return;
   }
   if (isPlaying) {
